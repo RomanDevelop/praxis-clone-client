@@ -3,6 +3,7 @@ class EngineData {
   final double oilTemp;
   final double coolantTemp;
   final double pressure;
+  final double load;
   final DateTime timestamp;
 
   EngineData({
@@ -10,6 +11,7 @@ class EngineData {
     required this.oilTemp,
     required this.coolantTemp,
     required this.pressure,
+    required this.load,
     required this.timestamp,
   });
 
@@ -21,6 +23,7 @@ class EngineData {
       coolantTemp: (json['coolant_temp'] ?? 0).toDouble(), // 🐍
       pressure: (json['fuel_pressure'] ?? 0)
           .toDouble(), // 🐍 возможно, у тебя это оно
+      load: (json['load'] ?? 0).toDouble(),
       timestamp: DateTime.tryParse(json['timestamp'] ?? '') ?? DateTime.now(),
     );
   }
