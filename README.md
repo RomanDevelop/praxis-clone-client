@@ -1,17 +1,18 @@
-# client
+# 🚢 Ship Monitoring System
 
-A new Flutter project.
+An integrated real-time monitoring system for marine engine parameters with alarm generation. Built with **FastAPI** on the backend and **Flutter** on the frontend, designed for use onboard vessels or in simulation environments.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ Features
 
-A few resources to get you started if this is your first Flutter project:
+- Real-time engine data via WebSocket
+- Automatic alarm generation based on thresholds
+- User switching (e.g., Chief, 2nd Engineer)
+- Frontend-ready API for mobile applications
+- Easy simulation of engine behavior
+- Clean and modular architecture for both server and client
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# praxis-clone-client
+## 📁 Project Structure
