@@ -16,5 +16,5 @@ An integrated real-time monitoring system for marine engine parameters with alar
 ---
 
 ## 📁 Project Structure
-<img width="1052" alt="Снимок экрана 2025-04-11 в 00 15 20" src="https://github.com/user-attachments/assets/7330c8c0-663d-49a6-b8e8-57afb96cada8" />
+
 # praxis-clone-client
