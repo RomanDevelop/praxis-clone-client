@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'presentation/main_navigation.dart';
 
+// This class is now just a forwarder to maintain compatibility
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Устанавливаем ориентацию экрана
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-
-    // Устанавливаем полноэкранный режим
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
+    // Forward to the MyApp in main.dart
+    // The MyApp class now contains the splash screen and theme setup
     return MaterialApp(
       title: 'Ship Monitor',
       theme: ThemeData.dark(useMaterial3: true).copyWith(

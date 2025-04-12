@@ -147,38 +147,60 @@ class GaugesPage extends ConsumerWidget {
                             ),
                             const SizedBox(height: 16),
 
-                            // Цифровые показатели в виде плиток
-                            GridView.count(
-                              shrinkWrap: true,
-                              crossAxisCount: 2,
-                              childAspectRatio: 3.0,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              physics: const NeverScrollableScrollPhysics(),
+                            // Replace the GridView with a Column of indicators
+                            const SizedBox(height: 16),
+                            Column(
                               children: [
-                                _buildDigitalIndicator(
-                                  'CHARGE AIR TEMP',
-                                  '${(engineData.coolantTemp / 2).toStringAsFixed(1)} °C',
-                                  Icons.thermostat,
-                                  Colors.teal,
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: _buildSimpleDigitalIndicator(
+                                        'CHARGE AIR TEMP',
+                                        (engineData.coolantTemp / 2)
+                                            .toStringAsFixed(1),
+                                        '°C',
+                                        Icons.thermostat,
+                                        Colors.teal,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: _buildSimpleDigitalIndicator(
+                                        'TURBO PRESSURE',
+                                        (engineData.pressure * 1.5)
+                                            .toStringAsFixed(1),
+                                        'bar',
+                                        Icons.speed,
+                                        Colors.indigo,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                _buildDigitalIndicator(
-                                  'TURBO PRESSURE',
-                                  '${(engineData.pressure * 1.5).toStringAsFixed(1)} bar',
-                                  Icons.speed,
-                                  Colors.indigo,
-                                ),
-                                _buildDigitalIndicator(
-                                  'OIL PRESSURE',
-                                  '${(engineData.pressure * 0.8).toStringAsFixed(1)} bar',
-                                  Icons.oil_barrel,
-                                  Colors.deepOrange,
-                                ),
-                                _buildDigitalIndicator(
-                                  'BATTERY VOLTAGE',
-                                  '${(12 + engineData.load / 100).toStringAsFixed(1)} V',
-                                  Icons.battery_charging_full,
-                                  Colors.purple,
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: _buildSimpleDigitalIndicator(
+                                        'OIL PRESSURE',
+                                        (engineData.pressure * 0.8)
+                                            .toStringAsFixed(1),
+                                        'bar',
+                                        Icons.oil_barrel,
+                                        Colors.deepOrange,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: _buildSimpleDigitalIndicator(
+                                        'BATTERY VOLTAGE',
+                                        (12 + engineData.load / 100)
+                                            .toStringAsFixed(1),
+                                        'V',
+                                        Icons.battery_charging_full,
+                                        Colors.purple,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -193,11 +215,14 @@ class GaugesPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildDigitalIndicator(
-      String title, String value, IconData icon, Color color) {
+  // New simpler digital indicator widget
+  Widget _buildSimpleDigitalIndicator(
+      String title, String value, String unit, IconData icon, Color color) {
+    final numericValue = double.tryParse(value) ?? 0.0;
+
     return RepaintBoundary(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: const Color(0xFF444444),
           borderRadius: BorderRadius.circular(8),
@@ -207,9 +232,9 @@ class GaugesPage extends ConsumerWidget {
           ),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Title and icon row
             Row(
               children: [
                 Icon(
@@ -217,13 +242,13 @@ class GaugesPage extends ConsumerWidget {
                   color: color,
                   size: 14,
                 ),
-                const SizedBox(width: 6),
+                const SizedBox(width: 4),
                 Expanded(
                   child: Text(
                     title,
                     style: TextStyle(
                       color: Colors.grey[300],
-                      fontSize: 11,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,
@@ -233,13 +258,36 @@ class GaugesPage extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 4),
-            Text(
-              value,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            // Value and unit row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TweenAnimationBuilder<double>(
+                  tween: Tween<double>(
+                      begin: numericValue * 0.8, end: numericValue),
+                  duration: const Duration(milliseconds: 800),
+                  curve: Curves.easeOutCubic,
+                  builder: (context, animatedValue, child) {
+                    return Text(
+                      '${animatedValue.toStringAsFixed(1)}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  unit,
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -248,7 +296,7 @@ class GaugesPage extends ConsumerWidget {
   }
 }
 
-class DialGauge extends StatelessWidget {
+class DialGauge extends StatefulWidget {
   final double value;
   final double minValue;
   final double maxValue;
@@ -273,12 +321,63 @@ class DialGauge extends StatelessWidget {
   });
 
   @override
+  State<DialGauge> createState() => _DialGaugeState();
+}
+
+class _DialGaugeState extends State<DialGauge>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _valueAnimation;
+  late double _previousValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _previousValue = widget.value;
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _valueAnimation = Tween<double>(
+      begin: _previousValue,
+      end: widget.value,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
+    _animationController.forward();
+  }
+
+  @override
+  void didUpdateWidget(DialGauge oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.value != widget.value) {
+      _previousValue = _valueAnimation.value;
+      _valueAnimation = Tween<double>(
+        begin: _previousValue,
+        end: widget.value,
+      ).animate(CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ));
+      _animationController.reset();
+      _animationController.forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          title,
+          widget.title,
           style: TextStyle(
             color: Colors.grey[300],
             fontSize: 14,
@@ -290,27 +389,37 @@ class DialGauge extends StatelessWidget {
           height: 120,
           width: 120,
           child: RepaintBoundary(
-            child: CustomPaint(
-              painter: GaugePainter(
-                value: value,
-                minValue: minValue,
-                maxValue: maxValue,
-                primaryColor: primaryColor,
-                dangerZoneStart: dangerZoneStart,
-                dangerZoneEnd: dangerZoneEnd,
-                isDangerLow: isDangerLow,
-              ),
+            child: AnimatedBuilder(
+              animation: _valueAnimation,
+              builder: (context, child) {
+                return CustomPaint(
+                  painter: GaugePainter(
+                    value: _valueAnimation.value,
+                    minValue: widget.minValue,
+                    maxValue: widget.maxValue,
+                    primaryColor: widget.primaryColor,
+                    dangerZoneStart: widget.dangerZoneStart,
+                    dangerZoneEnd: widget.dangerZoneEnd,
+                    isDangerLow: widget.isDangerLow,
+                  ),
+                );
+              },
             ),
           ),
         ),
         const SizedBox(height: 8),
-        Text(
-          '${value.toStringAsFixed(1)} $unit',
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+        AnimatedBuilder(
+          animation: _valueAnimation,
+          builder: (context, child) {
+            return Text(
+              '${_valueAnimation.value.toStringAsFixed(1)} ${widget.unit}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          },
         ),
       ],
     );
@@ -433,7 +542,13 @@ class GaugePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(covariant GaugePainter oldDelegate) {
+    return oldDelegate.value != value ||
+        oldDelegate.minValue != minValue ||
+        oldDelegate.maxValue != maxValue ||
+        oldDelegate.primaryColor != primaryColor ||
+        oldDelegate.dangerZoneStart != dangerZoneStart ||
+        oldDelegate.dangerZoneEnd != dangerZoneEnd ||
+        oldDelegate.isDangerLow != isDangerLow;
   }
 }

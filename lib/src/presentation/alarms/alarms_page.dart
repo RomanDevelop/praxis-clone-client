@@ -145,27 +145,6 @@ class AlarmsPage extends ConsumerWidget {
         color: const Color(0xFF333333),
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: const Color(0xFF444444),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Alarm History (${alarms.length})',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.filter_list, color: Colors.white),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
             Expanded(
               child: ListView.builder(
                 itemCount: alarms.length,

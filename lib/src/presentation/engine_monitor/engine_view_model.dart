@@ -2,7 +2,6 @@ import 'package:client/src/data/engine_service.dart';
 import 'package:client/src/domain/engine_data.dart';
 import 'package:client/src/domain/engine_parameter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:math';
 
 class EngineViewModel extends StateNotifier<EngineData?> {
   final EngineService _service;
