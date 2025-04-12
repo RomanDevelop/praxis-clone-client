@@ -17,11 +17,7 @@ An integrated real-time monitoring system for marine engine parameters with alar
 
 ## 📁 Project Structure
 
-# praxis-clone-client
-
-https://github.com/user-attachments/assets/b59c3054-dd39-4b71-b347-48a5b19a350d
-
-## Ship Alarm System
+# Ship Alarm System (Flutter Client)
 
 A Flutter application for monitoring ship engine parameters and systems.
 
