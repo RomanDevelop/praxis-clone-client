@@ -44,61 +44,61 @@ class EngineViewModel extends StateNotifier<EngineData?> {
 
   void _updateParameters(EngineData data) {
     print(
-        "Updating parameters with data: rpm=${data.rpm}, oilTemp=${data.oilTemp}, coolantTemp=${data.coolantTemp}, pressure=${data.pressure}, load=${data.load}");
+        "Updating parameters with data: rpm=${data.rpm}, oilTemp=${data.oilTemperature}, coolantTemp=${data.coolantTemperature}, pressure=${data.fuelPressure}, load=${data.engineLoad}");
 
     try {
       _parameters = [
         // Основные параметры двигателя
         EngineParameter.fromData(
-            _parameterTags['RPM']!, 'RPM', data.rpm, 'rpm', 'H', 1200.0, 1),
+            _parameterTags['RPM']!, 'RPM', data.rpm, 'rpm', 'H', 1260.0, 1),
         EngineParameter.fromData(_parameterTags['ENGINE_LOAD']!, 'ENGINE LOAD',
-            data.load, '%', 'H', 90.0, 1),
+            data.engineLoad, '%', 'H', 94.5, 1),
 
         // Параметры масла
         EngineParameter.fromData(_parameterTags['OIL_TEMPERATURE']!,
-            'OIL TEMPERATURE', data.oilTemp, 'C', 'H', 85.0, 1),
+            'OIL TEMPERATURE', data.oilTemperature, 'C', 'H', 89.25, 1),
         EngineParameter.fromData(_parameterTags['OIL_PRESSURE']!,
-            'OIL PRESSURE', data.pressure, 'bar', 'L', 3.0, 1),
+            'OIL PRESSURE', data.oilPressure, 'bar', 'L', 2.85, 1),
 
         // Параметры охлаждающей жидкости
         EngineParameter.fromData(_parameterTags['COOLANT_TEMPERATURE']!,
-            'COOLANT TEMPERATURE', data.coolantTemp, 'C', 'H', 95.0, 1),
+            'COOLANT TEMPERATURE', data.coolantTemperature, 'C', 'H', 99.75, 1),
         EngineParameter.fromData(_parameterTags['COOLANT_PRESSURE']!,
-            'COOLANT PRESSURE', data.pressure / 2, 'bar', 'L', 1.0, 1),
+            'COOLANT PRESSURE', data.coolantPressure, 'bar', 'L', 0.95, 1),
 
         // Параметры топлива
         EngineParameter.fromData(_parameterTags['FUEL_PRESSURE']!,
-            'FUEL PRESSURE', data.pressure, 'bar', 'L', 3.0, 1),
+            'FUEL PRESSURE', data.fuelPressure, 'bar', 'L', 2.85, 1),
         EngineParameter.fromData(_parameterTags['FUEL_CONSUMPTION']!,
-            'FUEL CONSUMPTION', data.load / 10, 'l/h', 'H', 10.0, 1),
+            'FUEL CONSUMPTION', data.fuelConsumption, 'l/h', 'H', 10.5, 1),
 
         // Температурные параметры
         EngineParameter.fromData(_parameterTags['EXHAUST_TEMP_1']!,
-            'EXHAUST TEMP 1', data.oilTemp * 4 + 100, 'C', 'H', 450.0, 1),
+            'EXHAUST TEMP 1', data.exhaustTemp1, 'C', 'H', 472.5, 1),
         EngineParameter.fromData(_parameterTags['EXHAUST_TEMP_2']!,
-            'EXHAUST TEMP 2', data.oilTemp * 4 + 120, 'C', 'H', 450.0, 1),
+            'EXHAUST TEMP 2', data.exhaustTemp2, 'C', 'H', 472.5, 1),
         EngineParameter.fromData(_parameterTags['EXHAUST_TEMP_3']!,
-            'EXHAUST TEMP 3', data.oilTemp * 4 + 90, 'C', 'H', 450.0, 1),
+            'EXHAUST TEMP 3', data.exhaustTemp3, 'C', 'H', 472.5, 1),
         EngineParameter.fromData(_parameterTags['EXHAUST_TEMP_4']!,
-            'EXHAUST TEMP 4', data.oilTemp * 4 + 110, 'C', 'H', 450.0, 1),
+            'EXHAUST TEMP 4', data.exhaustTemp4, 'C', 'H', 472.5, 1),
         EngineParameter.fromData(_parameterTags['EXHAUST_TEMP_5']!,
-            'EXHAUST TEMP 5', data.oilTemp * 4 + 105, 'C', 'H', 450.0, 1),
+            'EXHAUST TEMP 5', data.exhaustTemp5, 'C', 'H', 472.5, 1),
 
         // Другие параметры
         EngineParameter.fromData(_parameterTags['TURBO_PRESSURE']!,
-            'TURBO PRESSURE', data.pressure * 1.5, 'bar', 'H', 5.0, 1),
+            'TURBO PRESSURE', data.turboPressure, 'bar', 'H', 5.25, 1),
         EngineParameter.fromData(_parameterTags['AIR_INTAKE_TEMP']!,
-            'AIR INTAKE TEMP', data.coolantTemp / 2, 'C', 'H', 60.0, 1),
+            'AIR INTAKE TEMP', data.airIntakeTemp, 'C', 'H', 63.0, 1),
         EngineParameter.fromData(_parameterTags['BATTERY_VOLTAGE']!,
-            'BATTERY VOLTAGE', 12 + data.load / 100, 'V', 'L', 11.5, 1),
+            'BATTERY VOLTAGE', data.batteryVoltage, 'V', 'L', 10.925, 1),
         EngineParameter.fromData(_parameterTags['OIL_LEVEL']!, 'OIL LEVEL',
-            80 + data.rpm / 100, '%', 'L', 70.0, 1),
+            data.oilLevel, '%', 'L', 66.5, 1),
         EngineParameter.fromData(_parameterTags['COOLANT_LEVEL']!,
-            'COOLANT LEVEL', 85 + data.coolantTemp / 100, '%', 'L', 75.0, 1),
+            'COOLANT LEVEL', data.coolantLevel, '%', 'L', 71.25, 1),
         EngineParameter.fromData(_parameterTags['FUEL_LEVEL']!, 'FUEL LEVEL',
-            70 - data.load / 10, '%', 'L', 20.0, 1),
+            data.fuelLevel, '%', 'L', 19.0, 1),
         EngineParameter.fromData(_parameterTags['ENGINE_HOURS']!,
-            'ENGINE HOURS', 1250 + data.rpm / 1000, 'h', '', 0.0, 1),
+            'ENGINE HOURS', data.engineHours, 'h', '', 0.0, 1),
       ];
 
       print("Generated ${_parameters.length} parameters");

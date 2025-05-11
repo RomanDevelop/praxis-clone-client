@@ -48,7 +48,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             ShipWheel(size: 40),
             const SizedBox(width: 8),
             const Text(
-              "SCAIH",
+              "M/V UNISTAR",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,

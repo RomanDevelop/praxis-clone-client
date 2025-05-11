@@ -58,7 +58,7 @@ class GaugesPage extends ConsumerWidget {
                                   Expanded(
                                     child: RepaintBoundary(
                                       child: DialGauge(
-                                        value: engineData.load,
+                                        value: engineData.engineLoad,
                                         minValue: 0,
                                         maxValue: 100,
                                         title: 'LOAD',
@@ -81,7 +81,7 @@ class GaugesPage extends ConsumerWidget {
                                   Expanded(
                                     child: RepaintBoundary(
                                       child: DialGauge(
-                                        value: engineData.oilTemp,
+                                        value: engineData.oilTemperature,
                                         minValue: 50,
                                         maxValue: 120,
                                         title: 'OIL TEMP',
@@ -94,7 +94,7 @@ class GaugesPage extends ConsumerWidget {
                                   Expanded(
                                     child: RepaintBoundary(
                                       child: DialGauge(
-                                        value: engineData.coolantTemp,
+                                        value: engineData.coolantTemperature,
                                         minValue: 40,
                                         maxValue: 110,
                                         title: 'COOLANT TEMP',
@@ -117,7 +117,7 @@ class GaugesPage extends ConsumerWidget {
                                   Expanded(
                                     child: RepaintBoundary(
                                       child: DialGauge(
-                                        value: engineData.pressure,
+                                        value: engineData.fuelPressure,
                                         minValue: 0,
                                         maxValue: 10,
                                         title: 'FUEL PRESSURE',
@@ -132,7 +132,7 @@ class GaugesPage extends ConsumerWidget {
                                   Expanded(
                                     child: RepaintBoundary(
                                       child: DialGauge(
-                                        value: engineData.oilTemp * 5,
+                                        value: engineData.exhaustTemp1,
                                         minValue: 300,
                                         maxValue: 600,
                                         title: 'EXHAUST TEMP',
@@ -156,7 +156,7 @@ class GaugesPage extends ConsumerWidget {
                                     Expanded(
                                       child: _buildSimpleDigitalIndicator(
                                         'CHARGE AIR TEMP',
-                                        (engineData.coolantTemp / 2)
+                                        engineData.airIntakeTemp
                                             .toStringAsFixed(1),
                                         '°C',
                                         Icons.thermostat,
@@ -167,7 +167,7 @@ class GaugesPage extends ConsumerWidget {
                                     Expanded(
                                       child: _buildSimpleDigitalIndicator(
                                         'TURBO PRESSURE',
-                                        (engineData.pressure * 1.5)
+                                        engineData.turboPressure
                                             .toStringAsFixed(1),
                                         'bar',
                                         Icons.speed,
@@ -182,7 +182,7 @@ class GaugesPage extends ConsumerWidget {
                                     Expanded(
                                       child: _buildSimpleDigitalIndicator(
                                         'OIL PRESSURE',
-                                        (engineData.pressure * 0.8)
+                                        engineData.oilPressure
                                             .toStringAsFixed(1),
                                         'bar',
                                         Icons.oil_barrel,
@@ -193,7 +193,7 @@ class GaugesPage extends ConsumerWidget {
                                     Expanded(
                                       child: _buildSimpleDigitalIndicator(
                                         'BATTERY VOLTAGE',
-                                        (12 + engineData.load / 100)
+                                        engineData.batteryVoltage
                                             .toStringAsFixed(1),
                                         'V',
                                         Icons.battery_charging_full,

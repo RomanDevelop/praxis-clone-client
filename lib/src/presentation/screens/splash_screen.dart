@@ -29,6 +29,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     // Инициализация ViewModel (через Riverpod)
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      print('Initializing splash screen...'); // Debug print
       ref.read(splashProvider.notifier).initialize(
             _animationController,
             context,
@@ -41,6 +42,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   void dispose() {
+    print('Disposing splash screen...'); // Debug print
     _animationController.dispose();
     super.dispose();
   }
@@ -49,6 +51,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   Widget build(BuildContext context) {
     // Получаем текущее состояние из ViewModel
     final splashState = ref.watch(splashProvider);
+    print(
+        'Splash state: fade=${splashState.fadeValue}, scale=${splashState.scaleValue}, pulse=${splashState.pulseValue}, rotate=${splashState.rotateValue}'); // Debug print
 
     return Scaffold(
       backgroundColor: AppTheme.primaryBackground,
@@ -99,7 +103,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   // Текст заголовка с анимированной тенью
                   RepaintBoundary(
                     child: Text(
-                      'SEAMENS CLUB',
+                      'HELD SHIPPING',
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
@@ -120,7 +124,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   // Подзаголовок с анимированной тенью
                   RepaintBoundary(
                     child: Text(
-                      'AI HUB',
+                      'M/V UNISTAR',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,

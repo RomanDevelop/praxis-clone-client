@@ -98,16 +98,93 @@ refactor: implement SOLID and MVVM architecture
 - Improved UI/UX with consistent styling and animations
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
-1. Ensure Flutter is installed (v3.0.0 or newer)
-2. Clone the repository
-3. Run `flutter pub get` to install dependencies
-4. Run `flutter run` to launch the application
+### Prerequisites
 
-## Technology Stack
+- Flutter SDK (latest stable version)
+- Dart SDK (latest stable version)
+- Android Studio / Xcode for mobile development
+- VS Code (recommended) or your preferred IDE
 
-- Flutter
-- Riverpod for state management
-- flutter_map for interactive maps
-- CustomPaint for custom UI components
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/ship_alarm_system.git
+cd ship_alarm_system/client
+```
+
+2. Install dependencies:
+
+```bash
+flutter pub get
+```
+
+3. Run the application:
+
+```bash
+flutter run
+```
+
+## 🔧 Development
+
+### Mock Data Mode
+
+The application can run in two modes:
+
+1. **WebSocket Mode**: Connects to a real backend server
+2. **Mock Data Mode**: Uses simulated data for UI testing
+
+To switch between modes, modify `lib/src/shared/providers.dart`:
+
+```dart
+// WebSocket Mode
+final engineSocketProvider = Provider((ref) => EngineSocketClient(socketUrl));
+
+// Mock Data Mode
+final engineSocketProvider = Provider((ref) => null);
+```
+
+### Backend Integration
+
+The backend should provide a WebSocket endpoint at `ws://your-server:8000/ws/engine` with the following data structure:
+
+```json
+{
+  "rpm": 750.0,
+  "engine_load": 85.0,
+  "oil_temperature": 85.0,
+  "oil_pressure": 3.0,
+  "coolant_temperature": 90.0,
+  "coolant_pressure": 1.0,
+  "fuel_pressure": 3.0,
+  "fuel_consumption": 8.5,
+  "exhaust_temp_1": 450.0,
+  "exhaust_temp_2": 445.0,
+  "exhaust_temp_3": 448.0,
+  "exhaust_temp_4": 452.0,
+  "exhaust_temp_5": 447.0,
+  "turbo_pressure": 5.0,
+  "air_intake_temp": 35.0,
+  "battery_voltage": 24.0,
+  "oil_level": 85.0,
+  "coolant_level": 90.0,
+  "fuel_level": 75.0,
+  "engine_hours": 1250.5,
+  "timestamp": "2024-03-20T10:30:00Z"
+}
+```
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request

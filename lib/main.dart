@@ -149,7 +149,7 @@ class _SplashScreenState extends State<SplashScreen>
                       // Title text with animated shadow
                       RepaintBoundary(
                         child: Text(
-                          'SEAMENS CLUB',
+                          'HELD SHIPPING',
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
@@ -170,7 +170,7 @@ class _SplashScreenState extends State<SplashScreen>
                       // Subtitle text
                       RepaintBoundary(
                         child: Text(
-                          'AI HUB',
+                          'UNISTAR',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
@@ -390,7 +390,7 @@ class _MainNavigationWithDrawerState extends State<MainNavigationWithDrawer>
               ),
               const SizedBox(width: 8),
               const Text(
-                "SCAIH",
+                "UNISTAR",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -472,7 +472,7 @@ class _MainNavigationWithDrawerState extends State<MainNavigationWithDrawer>
                         animation: _animationController,
                         builder: (context, child) {
                           return Text(
-                            "SCAIH",
+                            "UNISTAR",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

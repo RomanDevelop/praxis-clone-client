@@ -50,6 +50,7 @@ class SplashViewModel extends StateNotifier<SplashState> {
 
   void initialize(AnimationController controller, BuildContext context,
       Widget destination) {
+    print('Initializing SplashViewModel...'); // Debug print
     _animationController = controller;
 
     // Настройка анимаций
@@ -57,6 +58,8 @@ class SplashViewModel extends StateNotifier<SplashState> {
 
     // Настройка таймера для навигации
     _navigationTimer = Timer(const Duration(seconds: 3), () {
+      print(
+          'Navigation timer completed, transitioning to main screen...'); // Debug print
       state = state.copyWith(isFinished: true);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => destination),
@@ -91,6 +94,9 @@ class SplashViewModel extends StateNotifier<SplashState> {
         : (_animationController.value < 0.3 ? 0.0 : 1.0);
     final rotateValue = rotateProgress * 0.25; // 0-0.25 (90 градусов)
 
+    print(
+        'Updating animation values: fade=$fadeValue, scale=$scaleValue, pulse=$pulseValue, rotate=$rotateValue'); // Debug print
+
     state = state.copyWith(
       fadeValue: fadeValue,
       scaleValue: scaleValue,
@@ -101,6 +107,7 @@ class SplashViewModel extends StateNotifier<SplashState> {
 
   @override
   void dispose() {
+    print('Disposing SplashViewModel...'); // Debug print
     _animationController.removeListener(_updateAnimationValues);
     _navigationTimer?.cancel();
     super.dispose();

@@ -56,25 +56,25 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           // Update values based on engine data
           switch (param.id) {
             case 'FUEL_PRESS':
-              newValue = engineData.pressure;
+              newValue = engineData.fuelPressure;
               break;
             case 'OIL_TEMP':
-              newValue = engineData.oilTemp;
+              newValue = engineData.oilTemperature;
               break;
             case 'COOLANT_TEMP':
-              newValue = engineData.coolantTemp;
+              newValue = engineData.coolantTemperature;
               break;
             case 'ENGINE_LOAD':
-              newValue = engineData.load;
+              newValue = engineData.engineLoad;
               break;
             case 'RPM':
               newValue = engineData.rpm;
               break;
             case 'FUEL_TEMP':
-              newValue = engineData.coolantTemp - 10;
+              newValue = engineData.coolantTemperature - 10;
               break;
             case 'EXHAUST_TEMP':
-              newValue = engineData.oilTemp * 5;
+              newValue = engineData.exhaustTemp1;
               break;
             default:
               // Keep current value
@@ -128,8 +128,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           5.0,
           'bar',
           0.0,
-          10.0,
-          7.0,
+          10.5,
+          7.35,
           const Offset(0.3, 0.4),
         ),
         SystemParameter.fromData(
@@ -139,8 +139,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           65.0,
           '°C',
           20.0,
-          120.0,
-          90.0,
+          126.0,
+          94.5,
           const Offset(0.7, 0.3),
         ),
         SystemParameter.fromData(
@@ -150,8 +150,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           120.0,
           'l/h',
           0.0,
-          200.0,
-          180.0,
+          210.0,
+          189.0,
           const Offset(0.5, 0.7),
         ),
       ],
@@ -172,8 +172,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           4.2,
           'bar',
           1.0,
-          6.0,
-          5.5,
+          6.3,
+          5.775,
           const Offset(0.4, 0.5),
         ),
         SystemParameter.fromData(
@@ -183,8 +183,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           82.0,
           '°C',
           50.0,
-          110.0,
-          90.0,
+          115.5,
+          94.5,
           const Offset(0.6, 0.3),
         ),
         SystemParameter.fromData(
@@ -194,8 +194,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           85.0,
           '%',
           50.0,
-          100.0,
-          60.0,
+          105.0,
+          63.0,
           const Offset(0.2, 0.7),
         ),
       ],
@@ -216,8 +216,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           75.0,
           '°C',
           40.0,
-          110.0,
-          95.0,
+          115.5,
+          99.75,
           const Offset(0.5, 0.4),
         ),
         SystemParameter.fromData(
@@ -227,8 +227,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           2.8,
           'bar',
           1.0,
-          4.0,
-          3.5,
+          4.2,
+          3.675,
           const Offset(0.7, 0.6),
         ),
         SystemParameter.fromData(
@@ -238,8 +238,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           90.0,
           '%',
           60.0,
-          100.0,
-          70.0,
+          105.0,
+          73.5,
           const Offset(0.3, 0.7),
         ),
       ],
@@ -260,8 +260,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           450.0,
           '°C',
           300.0,
-          600.0,
-          550.0,
+          630.0,
+          577.5,
           const Offset(0.6, 0.3),
         ),
         SystemParameter.fromData(
@@ -271,8 +271,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           3.2,
           'kPa',
           0.0,
-          10.0,
-          8.0,
+          10.5,
+          8.4,
           const Offset(0.4, 0.5),
         ),
         SystemParameter.fromData(
@@ -282,8 +282,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           65.0,
           '%',
           0.0,
-          100.0,
-          90.0,
+          105.0,
+          94.5,
           const Offset(0.7, 0.7),
         ),
         SystemParameter.fromData(
@@ -293,8 +293,8 @@ class SystemSchemaViewModel extends StateNotifier<Map<String, SystemSchema>> {
           850.0,
           'rpm',
           0.0,
-          1500.0,
-          1200.0,
+          1575.0,
+          1260.0,
           const Offset(0.2, 0.4),
         ),
       ],

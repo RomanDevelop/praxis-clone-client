@@ -9,7 +9,9 @@ import '../domain/system_schema.dart';
 const socketUrl =
     'ws://127.0.0.1:8000/ws/engine'; // заменить на IP сервера при необходимости
 
-final engineSocketProvider = Provider((ref) => EngineSocketClient(socketUrl));
+// Временно отключаем WebSocket для тестирования
+// final engineSocketProvider = Provider((ref) => EngineSocketClient(socketUrl));
+final engineSocketProvider = Provider((ref) => null);
 
 final engineServiceProvider =
     Provider((ref) => EngineService(ref.watch(engineSocketProvider)));

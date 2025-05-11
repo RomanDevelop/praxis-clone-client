@@ -43,7 +43,7 @@ final alarmsProvider = Provider<List<AlarmItem>>((ref) {
   }
 
   // Температура масла
-  if (engineData.oilTemp > 90) {
+  if (engineData.oilTemperature > 90) {
     alarms.add(
       AlarmItem(
         tag: '10932',
@@ -56,7 +56,7 @@ final alarmsProvider = Provider<List<AlarmItem>>((ref) {
   }
 
   // Температура охлаждающей жидкости
-  if (engineData.coolantTemp > 85) {
+  if (engineData.coolantTemperature > 85) {
     alarms.add(
       AlarmItem(
         tag: '10906',
@@ -69,7 +69,7 @@ final alarmsProvider = Provider<List<AlarmItem>>((ref) {
   }
 
   // Низкое давление топлива
-  if (engineData.pressure < 2.5) {
+  if (engineData.fuelPressure < 2.5) {
     alarms.add(
       AlarmItem(
         tag: '11017',
@@ -82,7 +82,7 @@ final alarmsProvider = Provider<List<AlarmItem>>((ref) {
   }
 
   // Высокая нагрузка
-  if (engineData.load > 85) {
+  if (engineData.engineLoad > 85) {
     alarms.add(
       AlarmItem(
         tag: '10801',
